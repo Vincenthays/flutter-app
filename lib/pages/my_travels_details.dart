@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './my_travels_details_edit.dart';
+
 class MyTravelsDetails extends StatelessWidget {
   final int _travelId;
 
@@ -13,11 +15,11 @@ class MyTravelsDetails extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.mode_edit),
-            onPressed: () => print('Edit'),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsDetailsEdit(_travelId))),
           ),
         ]
       ),
-      body: Container(
+      body: Padding(
         padding: EdgeInsets.only(top: 40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,7 +28,7 @@ class MyTravelsDetails extends StatelessWidget {
             Text('De point A', style: TextStyle(fontSize: 40.0), textAlign: TextAlign.center,),
             Icon(Icons.arrow_downward, size: 40.0,),
             Text('à point B', style: TextStyle(fontSize: 40.0), textAlign: TextAlign.center,),
-            Container(
+            Padding(
               padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

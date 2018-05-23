@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
+import './my_travels_add.dart';
 import './my_travels_details.dart';
 
 class MyTravels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: const Text('Mes trajets'),
+      appBar: AppBar(
+        title: Text('Mes trajets'),
         actions: <Widget>[
           IconButton(
-            icon: new Icon(Icons.add),
-            onPressed: () => print('Add'),
+            icon: Icon(Icons.add),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsAdd())),
           ),
         ]
       ),
@@ -22,7 +23,7 @@ class MyTravels extends StatelessWidget {
             leading: Icon(Icons.outlined_flag), 
             title: Text('Trajet $i'), 
             subtitle: Text('Détail du trajet $i'),
-            onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new MyTravelsDetails(i))),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsDetails(i))),
           )
         ),
       )

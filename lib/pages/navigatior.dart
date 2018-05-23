@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './home.dart';
 import './my_travels.dart';
-import './settings.dart';
-import './about.dart';
+import './test.dart';
+import './my_account.dart';
 
 class Navigatior extends StatefulWidget {
   @override
@@ -15,8 +14,8 @@ class NavigatiorState extends State<Navigatior> {
 
   List<Widget> _screens = <Widget>[
     MyTravels(),
-    Settings(),
-    About()
+    Test(),
+    MyAccount()
   ];
 
   @override
@@ -25,21 +24,21 @@ class NavigatiorState extends State<Navigatior> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
+        onTap: (int idx) => setState(() => _currentIndex = idx),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.card_travel),
+            icon: Icon(Icons.directions),
             title: Text('Mes trajets'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Paramètres'),
+            icon: Icon(Icons.info),
+            title: Text('Test'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            title: Text('A propos'),
+            icon: Icon(Icons.account_circle),
+            title: Text('Mon compte'),
           ),
         ],
-        onTap: (int idx) => setState(() => _currentIndex = idx),
       ),
     );
   }
