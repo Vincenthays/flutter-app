@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyTravelsDetailsEdit extends StatelessWidget {
-  final int _travelId;
+import '../objects/Travel.dart';
 
-  MyTravelsDetailsEdit(this._travelId);
+class MyTravelsDetailsEdit extends StatelessWidget {
+  final Travel _travel;
+
+  MyTravelsDetailsEdit(this._travel);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mon trajet $_travelId'),
+        title: Text(_travel.name),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),

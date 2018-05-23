@@ -3,7 +3,24 @@ import 'package:flutter/material.dart';
 import './my_travels_add.dart';
 import './my_travels_details.dart';
 
-class MyTravels extends StatelessWidget {
+import '../objects/Travel.dart';
+
+class MyTravels extends StatefulWidget {
+  @override
+  State createState() => _MyTravelsState();
+}
+
+class _MyTravelsState extends State<MyTravels> {
+
+  List<Travel> travels;
+
+  void initState() {
+    super.initState();
+    travels = List<Travel>.generate(
+      10, (i) => Travel('Trajet $i', 'Point A', 'Point B')
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,15 +34,12 @@ class MyTravels extends StatelessWidget {
         ]
       ),
       body: ListView(
-        children: List<Widget>.generate(
-          20, 
-          (i) => ListTile(
-            leading: Icon(Icons.outlined_flag), 
-            title: Text('Trajet $i'), 
-            subtitle: Text('Détail du trajet $i'),
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsDetails(i))),
-          )
-        ),
+        children: travels.map((travel) => ListTile(
+          leading: Icon(Icons.outlined_flag), 
+          title: Text(travel.name), 
+          subtitle: Text('${travel.from} to ${travel.to}'),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsDetails(travel))),
+        )).toList()
       )
     );
   }

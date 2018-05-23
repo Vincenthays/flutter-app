@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class Test extends StatefulWidget {
   @override
-  State createState() => TestState();
+  State createState() => _TestState();
 }
 
-class TestState extends State<Test> {
+class _TestState extends State<Test> {
   int _counter = 0;
 
   @override
