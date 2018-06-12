@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyTravelsAdd extends StatelessWidget {
+class MyTravelsAdd extends StatefulWidget {
+  @override
+  State createState() => _MyTravelsAddState();
+}
+
+class _MyTravelsAddState extends State<MyTravelsAdd> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

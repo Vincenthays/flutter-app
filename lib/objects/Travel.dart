@@ -1,11 +1,11 @@
 class Travel {
-  String _name;
-  String _from;
-  String _to;
+  int id;
+  String name;
+  String from;
+  String to;
 
-  Travel(this._name, this._from, this._to);
+  Travel(this.id, this.name, this.from, this.to);
 
-  String get name => _name;
-  String get from => _from;
-  String get to => _to;
+  @override
+  String toString() => "Travel($id,$name)";
 }

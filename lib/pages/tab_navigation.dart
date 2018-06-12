@@ -4,18 +4,18 @@ import './my_travels.dart';
 import './test.dart';
 import './my_account.dart';
 
-class Navigatior extends StatefulWidget {
+class TabNavigation extends StatefulWidget {
   @override
-  State createState() => NavigatiorState();
+  State createState() => _TabNavigationState();
 }
 
-class NavigatiorState extends State<Navigatior> {
+class _TabNavigationState extends State<TabNavigation> {
   int _currentIndex = 0;
 
   List<Widget> _screens = <Widget>[
     MyTravels(),
     Test(),
-    MyAccount()
+    MyAccount(),
   ];
 
   @override

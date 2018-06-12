@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../models/TravelModel.dart';
 
 import './my_travels_add.dart';
 import './my_travels_details.dart';
-
-import '../objects/Travel.dart';
 
 class MyTravels extends StatefulWidget {
   @override
@@ -12,12 +13,44 @@ class MyTravels extends StatefulWidget {
 
 class _MyTravelsState extends State<MyTravels> {
 
-  List<Travel> travels;
+  void _onDismissedHandler(DismissDirection direction, DocumentSnapshot travel) {
+    if (direction == DismissDirection.endToStart) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("${travel['name']} modifié"), 
+        backgroundColor: Colors.green,
+      ));
+    } else {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("${travel['name']} supprimé"), 
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
 
-  void initState() {
-    super.initState();
-    travels = List<Travel>.generate(
-      10, (i) => Travel('Trajet $i', 'Point A', 'Point B')
+  Widget _buildListItem(BuildContext context, DocumentSnapshot travel) {
+    return Dismissible(
+      key: Key(travel['name']),
+      background: Container(
+        color: Colors.red,
+        child: Icon(Icons.delete),
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.only(left: 20.0),
+      ),
+      secondaryBackground: Container(
+        color: Colors.green,
+        child: Icon(Icons.edit),
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(right: 20.0),
+      ),
+      onDismissed: (direction) => _onDismissedHandler(direction, travel),
+      child: ListTile(
+        leading: Icon(Icons.outlined_flag), 
+        title: Text(travel['name']), 
+        subtitle: Text('${travel['from']} à ${travel['to']}'),
+        // onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (BuildContext context) => MyTravelsDetails())
+        // ),
+      )
     );
   }
 
@@ -33,13 +66,15 @@ class _MyTravelsState extends State<MyTravels> {
           ),
         ]
       ),
-      body: ListView(
-        children: travels.map((travel) => ListTile(
-          leading: Icon(Icons.outlined_flag), 
-          title: Text(travel.name), 
-          subtitle: Text('${travel.from} to ${travel.to}'),
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => MyTravelsDetails(travel))),
-        )).toList()
+      body: StreamBuilder(
+        stream: Firestore.instance.collection('travel').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) return Center(child: Text('Loading ...'));
+          return ListView.builder(
+            itemCount:  snapshot.data.documents.length,
+            itemBuilder: (context, index) => _buildListItem(context, snapshot.data.documents[index])
+          );
+        }
       )
     );
   }

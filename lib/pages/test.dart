@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class Test extends StatefulWidget {
-  @override
-  State createState() => _TestState();
-}
+final GoogleSignIn _googleSignIn = new GoogleSignIn();
 
-class _TestState extends State<Test> {
-  int _counter = 0;
+class Test extends StatelessWidget {
+
+  void _onPressedHandler() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    
+    print('signInWithGoogle succeeded: $googleAuth');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Laure Nicolas $_counter', style: TextStyle(fontSize: 40.0),),
+      appBar: AppBar(
+        title: Text('Connexion'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => setState(() => _counter++)
+        child: Icon(Icons.verified_user),
+        onPressed: () => _onPressedHandler(),
       ),
     );
   }

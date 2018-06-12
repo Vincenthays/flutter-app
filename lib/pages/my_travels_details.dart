@@ -21,26 +21,19 @@ class MyTravelsDetails extends StatelessWidget {
           ),
         ]
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(_travel.from, style: TextStyle(fontSize: 40.0), textAlign: TextAlign.center,),
-            Icon(Icons.arrow_downward, size: 40.0,),
-            Text(_travel.to, style: TextStyle(fontSize: 40.0), textAlign: TextAlign.center,),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Heure de départ')
-                ],
-              ),
-            )
-          ],
-        )
+      body: Stepper(
+        steps: [
+          Step(
+              title: Text(_travel.from),
+              subtitle: Text('8h'),
+              content: Text('Vous pouvez aider 2 personnes'),
+          ),
+          Step(
+              title: Text(_travel.to),
+              subtitle: Text('9h'),
+              content: Text('Test'),
+          ),
+        ],
       )
     );
   }
